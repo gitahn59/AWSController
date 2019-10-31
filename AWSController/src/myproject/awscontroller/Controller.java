@@ -15,6 +15,7 @@ import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
+import com.amazonaws.services.ec2.model.StopInstancesRequest;
 
 public class Controller {
 	private AmazonEC2 ec2;
@@ -70,6 +71,17 @@ public class Controller {
 		}
 		catch(Exception e) { // invalid id
 			throw new Exception("Cannot start instance"
+					+"Please check your instance id" ,e);
+		}		
+	}
+	
+	public void stopInstance(String id) throws Exception{
+		StopInstancesRequest request = new StopInstancesRequest().withInstanceIds(id);
+		try {
+			ec2.stopInstances(request); // stop instance
+		}
+		catch(Exception e) { // invalid id
+			throw new Exception("Cannot stop instance,"
 					+"Please check your instance id" ,e);
 		}		
 	}

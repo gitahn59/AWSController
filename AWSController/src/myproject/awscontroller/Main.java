@@ -73,7 +73,19 @@ public class Main {
 					System.out.println("Successfully started instance "+instanceId);
 					break;
 				case 4: break;
-				case 5: break;
+				case 5: 
+					System.out.print("Enter instance id: ");
+					instanceId = id_string.nextLine(); // input instance id
+					System.out.println("Stopping .... "+instanceId);
+					try {
+						controller.stopInstance(instanceId); // stop instance
+					}catch(Exception e) { // invalid id
+						System.out.println("Cannot stop instance.");
+						System.out.println("Please check your instance id.");
+						continue; // continue loop
+					}
+					System.out.println("Successfully stoped instance "+instanceId);
+					break;
 				case 6: break;
 				case 7: break;
 				case 8: break;
