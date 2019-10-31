@@ -58,7 +58,11 @@ public class Main {
 						System.out.println("Please check your key.");
 					}
 					break;
-				case 2: break;
+				case 2: 
+					System.out.println("Available zones....");
+					int size = controller.listAvailableZones();
+					System.out.printf("You have access to %d Availability Zones.",size);
+					break;
 				case 3: 
 					System.out.print("Enter instance id: ");
 					instanceId = id_string.nextLine(); // input instance id

@@ -11,10 +11,10 @@ package myproject.awscontroller;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.RebootInstancesRequest;
-import com.amazonaws.services.ec2.model.RebootInstancesResult;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
@@ -98,6 +98,21 @@ public class Controller {
 			throw new Exception("Cannot reboot instance,"
 					+"Please check your instance id" ,e);
 		}		
+	}
+	
+	public int listAvailableZones() {
+		DescribeAvailabilityZonesResult response = ec2.describeAvailabilityZones();
+		for(com.amazonaws.services.ec2.model.AvailabilityZone zone : response.getAvailabilityZones()) {
+			//Print available zones
+			System.out.printf(
+			 "[id] %s,	" + "[region] %15s, " + "[zone] %15s",
+			 zone.getZoneId(),
+			 zone.getRegionName(),
+			 zone.getZoneName()
+			 );
+			 System.out.println();
+		}
+		return response.getAvailabilityZones().size(); // return size of zones
 	}
 	
 }
