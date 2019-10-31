@@ -59,7 +59,19 @@ public class Main {
 					}
 					break;
 				case 2: break;
-				case 3: break;
+				case 3: 
+					System.out.print("Enter instance id: ");
+					instanceId = id_string.nextLine(); // input instance id
+					System.out.println("Starting .... "+instanceId);
+					try {
+						controller.startInstance(instanceId); // start instance
+					}catch(Exception e) { // invalid id
+						System.out.println("Cannot start instance.");
+						System.out.println("Please check your instance id.");
+						continue; // continue loop
+					}
+					System.out.println("Successfully started instance "+instanceId);
+					break;
 				case 4: break;
 				case 5: break;
 				case 6: break;

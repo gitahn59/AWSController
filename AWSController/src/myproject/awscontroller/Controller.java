@@ -14,6 +14,7 @@ import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.StartInstancesRequest;
 
 public class Controller {
 	private AmazonEC2 ec2;
@@ -61,4 +62,16 @@ public class Controller {
 			}
 		}
 	}
+	
+	public void startInstance(String id) throws Exception{
+		StartInstancesRequest request = new StartInstancesRequest().withInstanceIds(id);
+		try {
+			ec2.startInstances(request); // start instance
+		}
+		catch(Exception e) { // invalid id
+			throw new Exception("Cannot start instance"
+					+"Please check your instance id" ,e);
+		}		
+	}
+	
 }
