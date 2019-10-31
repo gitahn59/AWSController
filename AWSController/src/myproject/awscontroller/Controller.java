@@ -14,6 +14,7 @@ import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.DescribeRegionsResult;
 import com.amazonaws.services.ec2.model.RebootInstancesRequest;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
@@ -115,4 +116,16 @@ public class Controller {
 		return response.getAvailabilityZones().size(); // return size of zones
 	}
 	
+	public void listAvailableRegions() {
+		DescribeRegionsResult response = ec2.describeRegions();
+		
+		for(com.amazonaws.services.ec2.model.Region region : response.getRegions()) {
+			//Print available regions
+			System.out.printf(
+			 "[region] %15s,	" + "[endpoint] %s",
+			 region.getRegionName(),
+			 region.getEndpoint());
+			 System.out.println();
+		}
+	}
 }

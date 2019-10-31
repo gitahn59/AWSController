@@ -76,7 +76,10 @@ public class Main {
 					}
 					System.out.println("Successfully started instance "+instanceId);
 					break;
-				case 4: break;
+				case 4: 	
+					System.out.println("Available regions....");
+					controller.listAvailableRegions();
+				break;
 				case 5: 
 					System.out.print("Enter instance id: ");
 					instanceId = id_string.nextLine(); // input instance id
