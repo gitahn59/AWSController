@@ -12,6 +12,8 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeRegionsResult;
@@ -128,4 +130,21 @@ public class Controller {
 			 System.out.println();
 		}
 	}
+	
+	public void listImages() {
+		DescribeImagesRequest request = new DescribeImagesRequest();
+		request.withOwners("self"); // AMI's owner is myself
+		DescribeImagesResult response = ec2.describeImages(request);
+		
+		for(com.amazonaws.services.ec2.model.Image image : response.getImages()) {
+			//Print images
+			System.out.printf(
+			 "[ImageID] %15s, " + "[Name] %20s, " +"[Owner] %s",
+			 image.getImageId(),
+			 image.getName(),
+			 image.getOwnerId());
+			 System.out.println();
+		}
+	}
+	
 }

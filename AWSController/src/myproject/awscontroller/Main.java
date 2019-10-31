@@ -79,7 +79,7 @@ public class Main {
 				case 4: 	
 					System.out.println("Available regions....");
 					controller.listAvailableRegions();
-				break;
+					break;
 				case 5: 
 					System.out.print("Enter instance id: ");
 					instanceId = id_string.nextLine(); // input instance id
@@ -107,7 +107,10 @@ public class Main {
 					}
 					System.out.println("Successfully rebooted instance "+instanceId);
 					break;
-				case 8: break;
+				case 8: 	
+					System.out.println("Listing images....");
+					controller.listImages();
+					break;
 				case 99:   
 					return; // halt
 				default: 
