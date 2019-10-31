@@ -11,6 +11,9 @@ package myproject.awscontroller;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.Reservation;
 
 public class Controller {
 	private AmazonEC2 ec2;
@@ -32,4 +35,30 @@ public class Controller {
 				.withRegion("us-east-1")
 				.build();
 	} 
+	
+	public void listInstances() {
+		System.out.println("Listing instances....");
+		DescribeInstancesRequest request = new DescribeInstancesRequest();
+		
+		while(true) {
+			DescribeInstancesResult response = ec2.describeInstances(request);
+			for(Reservation reservation : response.getReservations()) {
+				for(com.amazonaws.services.ec2.model.Instance instance: reservation.getInstances()) {
+					//Print instances information
+					System.out.printf("[id] %s, " +"[AMI] %s, " +"[type] %s, " +"[state] %10s, " +"[monitoring state] %s",
+							instance.getInstanceId(),
+							instance.getImageId(),
+							instance.getInstanceType(),
+							instance.getState().getName(),
+							instance.getMonitoring().getState());
+					}
+				System.out.println();
+			}
+			
+			request.setNextToken(response.getNextToken()); // get next token
+			if(response.getNextToken() == null) { 		   // if next token is null
+				break; 							 		   // stop loop
+			}
+		}
+	}
 }

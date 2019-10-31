@@ -50,7 +50,14 @@ public class Main {
 			menuNum = Integer.parseInt(menu.nextLine()); // input menu Number
 			
 			switch(menuNum) {
-				case 1: break;
+				case 1: 
+					try {
+						controller.listInstances(); // print instances
+					}catch(Exception e) { 
+						System.out.println("Cannot list instances.");
+						System.out.println("Please check your key.");
+					}
+					break;
 				case 2: break;
 				case 3: break;
 				case 4: break;
