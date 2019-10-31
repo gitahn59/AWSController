@@ -13,6 +13,8 @@ import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.RebootInstancesRequest;
+import com.amazonaws.services.ec2.model.RebootInstancesResult;
 import com.amazonaws.services.ec2.model.Reservation;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
@@ -82,6 +84,18 @@ public class Controller {
 		}
 		catch(Exception e) { // invalid id
 			throw new Exception("Cannot stop instance,"
+					+"Please check your instance id" ,e);
+		}		
+	}
+	
+	public void rebootInstance(String id) throws Exception{
+		RebootInstancesRequest request = new RebootInstancesRequest().withInstanceIds(id);
+		
+		try {
+			ec2.rebootInstances(request); // reboot instance
+		}
+		catch(Exception e) { // invalid id
+			throw new Exception("Cannot reboot instance,"
 					+"Please check your instance id" ,e);
 		}		
 	}

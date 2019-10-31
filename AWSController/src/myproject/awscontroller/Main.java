@@ -84,10 +84,22 @@ public class Main {
 						System.out.println("Please check your instance id.");
 						continue; // continue loop
 					}
-					System.out.println("Successfully stoped instance "+instanceId);
+					System.out.println("Successfully stopped instance "+instanceId);
 					break;
 				case 6: break;
-				case 7: break;
+				case 7: 
+					System.out.print("Enter instance id: ");
+					instanceId = id_string.nextLine(); // input instance id
+					System.out.println("Rebooting .... "+instanceId);
+					try {
+						controller.rebootInstance(instanceId); // reboot instance
+					}catch(Exception e) { // invalid id
+						System.out.println("Cannot reboot instance.");
+						System.out.println("Please check your instance id.");
+						continue; // continue loop
+					}
+					System.out.println("Successfully rebooted instance "+instanceId);
+					break;
 				case 8: break;
 				case 99:   
 					return; // halt
