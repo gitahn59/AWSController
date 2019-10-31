@@ -27,7 +27,7 @@ public class Main {
 		Scanner menu = new Scanner(System.in); 
 		Scanner id_string= new Scanner(System.in); 
 		int menuNum = 0; // menu Number
-		String instanceId; // AWS instance id
+		String instanceId=""; // AWS instance id
 		
 		while(true){
 			// User Interface
@@ -93,7 +93,13 @@ public class Main {
 					}
 					System.out.println("Successfully stopped instance "+instanceId);
 					break;
-				case 6: break;
+				case 6: 
+					System.out.print("Enter instance ami id: ");
+					String amiId = id_string.nextLine(); // input AMI id
+					instanceId = controller.createInstance(amiId);
+					System.out.printf("Successfully started EC2 instance %s based on AMI %s ",instanceId, amiId);
+					System.out.println();
+					break;
 				case 7: 
 					System.out.print("Enter instance id: ");
 					instanceId = id_string.nextLine(); // input instance id

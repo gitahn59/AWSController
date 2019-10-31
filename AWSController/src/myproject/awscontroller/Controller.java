@@ -17,8 +17,11 @@ import com.amazonaws.services.ec2.model.DescribeImagesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeRegionsResult;
+import com.amazonaws.services.ec2.model.InstanceType;
 import com.amazonaws.services.ec2.model.RebootInstancesRequest;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.RunInstancesRequest;
+import com.amazonaws.services.ec2.model.RunInstancesResult;
 import com.amazonaws.services.ec2.model.StartInstancesRequest;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
 
@@ -147,4 +150,13 @@ public class Controller {
 		}
 	}
 	
+	public String createInstance(String amiId) {
+		RunInstancesRequest request = new RunInstancesRequest()
+				 .withImageId(amiId)
+				 .withInstanceType(InstanceType.T2Micro)
+				 .withMaxCount(1)
+				 .withMinCount(1);
+		RunInstancesResult response = ec2.runInstances(request);
+		return response.getReservation().getInstances().get(0).getInstanceId();
+	}
 }
